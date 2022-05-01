@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {Route, Switch, Link} from 'react-router-dom'
 
 import {logout} from '../store'
-import { Login, Signup } from './AuthForm';
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+import { clearBoard, seedBoard } from '../store/cells'
+
+const Navbar = ({handleClick, isLoggedIn, randomize, clear, age}) => (
   <div className="navbar">
     <div>
       <h1>Game of Life</h1>
@@ -21,9 +22,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       ) : (
         <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <ul>
+            {/* The navbar will show these links before you log in */}
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/signup">Sign Up</Link></li>
+            <li>cycle: {age}</li>
+          </ul>
         </div>
       )}
     </nav>
@@ -31,7 +35,21 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <h1>welcome back</h1>
       ): (
-        <h3>login/register form</h3>
+        <ul>
+          <li>
+            <button onClick={randomize} type="button">random</button>
+          </li>
+          <li>
+            <button onClick={clear} type="button">clear</button>
+          </li>
+          <li>
+            <button onClick={clear} type="button">start</button>
+          </li>
+          <li>
+            <button onClick={clear} type="button">pause</button>
+          </li>
+
+        </ul>
       )}
     </div>
   </div>
@@ -42,15 +60,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    age: state.generation.age
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
-    }
+    handleClick: () => dispatch(logout()),
+    randomize: () => dispatch(seedBoard()),
+    clear: () => dispatch(clearBoard()),
   }
 }
 

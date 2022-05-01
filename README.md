@@ -8,6 +8,10 @@
 - [X] Fill in cells based on 2D array of state ('seed')
 
 ### Goals
+####
+- [ ] Save current board to localstorage
+- [ ] Load board from localstorage
+
 #### calculate next state
 - Check neighbors and follow rules
   -  Any live cell with two or three live neighbours survives.

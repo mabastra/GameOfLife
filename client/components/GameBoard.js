@@ -10,7 +10,7 @@ class GameBoard extends React.Component {
     const width = 60;
     const height = 60;
     this.props.emptyBoard(width, height);
-    this.props.seedBoard();
+    // this.props.seedBoard();
     this.cellClick = this.cellClick.bind(this);
   }
   cellClick(x, y) {
@@ -34,7 +34,8 @@ class GameBoard extends React.Component {
 
 const mapState = (state) => {
   return {
-    cells: state.cells,
+    cells: state.generation.cells,
+    age: state.generation.age
   }
 }
 const mapDispatch = (dispatch) => {
