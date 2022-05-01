@@ -4,9 +4,9 @@ import {Route, Switch, Link} from 'react-router-dom'
 
 import {logout} from '../store'
 
-import { clearBoard, seedBoard } from '../store/cells'
+import { clearBoard, seedBoard, nextBoard } from '../store/cells'
 
-const Navbar = ({handleClick, isLoggedIn, randomize, clear, age}) => (
+const Navbar = ({handleClick, isLoggedIn, randomize, clear, start, age}) => (
   <div className="navbar">
     <div>
       <h1>Game of Life</h1>
@@ -43,7 +43,7 @@ const Navbar = ({handleClick, isLoggedIn, randomize, clear, age}) => (
             <button onClick={clear} type="button">clear</button>
           </li>
           <li>
-            <button onClick={clear} type="button">start</button>
+            <button onClick={start} type="button">start</button>
           </li>
           <li>
             <button onClick={clear} type="button">pause</button>
@@ -70,6 +70,7 @@ const mapDispatch = dispatch => {
     handleClick: () => dispatch(logout()),
     randomize: () => dispatch(seedBoard()),
     clear: () => dispatch(clearBoard()),
+    start: () => dispatch(nextBoard()),
   }
 }
 

@@ -10,13 +10,14 @@ class GameBoard extends React.Component {
     const width = 60;
     const height = 60;
     this.props.emptyBoard(width, height);
-    // this.props.seedBoard();
+    this.props.seedBoard();
     this.cellClick = this.cellClick.bind(this);
   }
+
   cellClick(x, y) {
-    console.log(`clicked cell x: ${x}, y: ${y}`)
     this.props.clickCell(x, y)
   }
+
   render () {
     const cells = this.props.cells || [];
     return (

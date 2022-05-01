@@ -13,14 +13,14 @@
 - [ ] Load board from localstorage
 
 #### calculate next state
-- Check neighbors and follow rules
+- [X] Check neighbors and follow rules
   -  Any live cell with two or three live neighbours survives.
   -  Any dead cell with three live neighbours becomes a live cell. (reproduction)
   -  All other live cells die in the next generation. (under/over-population)
   -  All other dead cells stay dead
   -  Determine how to handle edge cells with fewer neighbors
 
-- Create lifecycle loop that runs at constant time and changes state with rules
+- [ ] Create lifecycle loop that runs at constant time and changes state with rules
 
 ### Extended Goals
 - [ ] info component (about cellular automata, etc)
