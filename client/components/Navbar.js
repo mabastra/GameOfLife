@@ -1,11 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Route, Switch, Link} from 'react-router-dom'
+
 import {logout} from '../store'
+import { Login, Signup } from './AuthForm';
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
+  <div className="navbar">
+    <div>
+      <h1>Game of Life</h1>
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -23,7 +27,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       )}
     </nav>
-    <hr />
+    <div>
+      {isLoggedIn ? (
+        <h1>welcome back</h1>
+      ): (
+        <h3>login/register form</h3>
+      )}
+    </div>
   </div>
 )
 
