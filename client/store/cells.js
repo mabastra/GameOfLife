@@ -21,6 +21,7 @@ export const emptyBoard = (width, height) => {
     generation : {
       cells,
       age: 0,
+      changed: false,
     }
   }
 }
@@ -48,7 +49,7 @@ export const nextBoard = () => {
   }
 }
 
-export default function(state = {}, action) {
+export default function (state = {}, action) {
   
   switch (action.type) {
     case EMPTY_BOARD:
@@ -59,7 +60,7 @@ export default function(state = {}, action) {
       for (let x=0; x<cells.length; x++)
         for (let y=0; y<cells[x].length; y++)
           cells[x][y].status = 'dead'
-      return { cells, age: 0 }
+      return { cells, age: 0, changed: false }
     }
 
     case LOAD_BOARD:
@@ -70,12 +71,13 @@ export default function(state = {}, action) {
       for (let x=0; x<cells.length; x++)
         for (let y=0; y<cells[x].length; y++)
           cells[x][y].status = (Math.floor(Math.random() * 9)%5 === 0) ? 'alive' : 'dead';
-      return { cells, age: 0}
+      return { cells, age: 0, changed: false}
     }
 
     case NEXT_BOARD: {
-      const curr = [...state.cells]
+      let diff = false;
       const age = state.age + 1
+      const curr = [...state.cells]
       let next = []
       // process rules
       for (let x=0; x<curr.length; x++) {
@@ -103,9 +105,10 @@ export default function(state = {}, action) {
             : (neighbors === 3)
               ? 'alive' : 'dead';
           next[x].push(cell);
+          if (next[x][y].status !== curr[x][y].status) diff = true;
         }
       }
-      return { cells: next, age }
+      return { cells: next, age: (diff)? age : state.age, changed: diff }
     }
 
     case FLIP_CELL: {
@@ -114,7 +117,7 @@ export default function(state = {}, action) {
         (cells[action.cell.x][action.cell.y].status === 'alive') 
           ? 'dead' 
           : 'alive';
-      return {...state, cells}
+      return {...state, cells, changed: false}
     }
 
     default:

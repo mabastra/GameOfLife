@@ -2,24 +2,40 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Cell from './Cell';
-import { emptyBoard, seedBoard, flipCell } from '../store/cells'
+import { emptyBoard, seedBoard, nextBoard, flipCell } from '../store/cells'
+import { resetLoop, toggleLoop } from '../store/loop'
+
+const width = 60;
+const height = 60;
 
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
-    const width = 60;
-    const height = 60;
-    this.props.emptyBoard(width, height);
+    this.props.setup(width, height);
     this.props.seedBoard();
     this.cellClick = this.cellClick.bind(this);
   }
 
   cellClick(x, y) {
-    this.props.clickCell(x, y)
+    if (!this.props.active) this.props.clickCell(x, y)
+  }
+
+  componentWillUnmount() {
+    //empty board out for refresh
+    this.props.setup(width, height)
+
   }
 
   render () {
+    if (this.props.active) console.log('props.active', this.props.active)
+    const active = this.props.active || false;
     const cells = this.props.cells || [];
+    const changed = this.props.changed || false;
+
+    console.log(`active ${active} and changed ${changed} `)
+    if (active === true && changed === false) this.props.toggle();
+    if (active) setTimeout(this.props.play, 100);
+
     return (
       <div className="gameboard">
         {
@@ -36,15 +52,19 @@ class GameBoard extends React.Component {
 const mapState = (state) => {
   return {
     cells: state.generation.cells,
-    age: state.generation.age
+    age: state.generation.age,
+    changed: state.generation.changed,
+    active: state.loop,
   }
 }
 const mapDispatch = (dispatch) => {
   return {
     loadBoard: () => dispatch(loadBoard()),
-    emptyBoard: (width, height) => dispatch(emptyBoard(width, height)),
+    setup: (width, height) => { dispatch(emptyBoard(width, height)); dispatch(resetLoop()); },
     seedBoard: () => dispatch(seedBoard()),
     clickCell: (x, y) => dispatch(flipCell(x, y)),
+    play: () => dispatch(nextBoard()),
+    toggle: () => {dispatch(toggleLoop())},
   }
   
 }

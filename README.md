@@ -9,6 +9,8 @@
 
 ### Goals
 ####
+- [ ] erase board on dismount
+- [ ] create active/inactive states for buttons based on loop
 - [ ] Save current board to localstorage
 - [ ] Load board from localstorage
 
@@ -20,7 +22,7 @@
   -  All other dead cells stay dead
   -  Determine how to handle edge cells with fewer neighbors
 
-- [ ] Create lifecycle loop that runs at constant time and changes state with rules
+- [X] Create lifecycle loop that runs at constant time and changes state with rules
 
 ### Extended Goals
 - [ ] info component (about cellular automata, etc)

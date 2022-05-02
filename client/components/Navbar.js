@@ -1,59 +1,55 @@
-import React from 'react'
+import React, { useState, setState } from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Link} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal'
 
 import {logout} from '../store'
 
 import { clearBoard, seedBoard, nextBoard } from '../store/cells'
+import { toggleLoop, resetLoop } from '../store/loop'
 
-const Navbar = ({handleClick, isLoggedIn, randomize, clear, start, age}) => (
-  <div className="navbar">
-    <div>
-      <h1>Game of Life</h1>
-    </div>
-    <nav>
-      {isLoggedIn ? (
+const Navbar = ({randomize, clear, toggle, active, age}) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  return (
+    <>
+      <div className="navbar">
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <h1><Link to='/'>Game of Life</Link></h1>
+          <button onClick={handleShow} type="button">info</button>
         </div>
-      ) : (
-        <div>
+        <nav>
+        generation: {age}
+
           <ul>
-            {/* The navbar will show these links before you log in */}
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Sign Up</Link></li>
-            <li>cycle: {age}</li>
+              <li>
+                <button onClick={randomize} type="button">random</button>
+              </li>
+              <li>
+                <button onClick={clear} type="button">clear</button>
+              </li>
+              <li>
+                <button onClick={toggle} type="button">{active ? 'pause' : 'play'}</button>
+              </li>
           </ul>
-        </div>
-      )}
-    </nav>
-    <div>
-      {isLoggedIn ? (
-        <h1>welcome back</h1>
-      ): (
-        <ul>
-          <li>
-            <button onClick={randomize} type="button">random</button>
-          </li>
-          <li>
-            <button onClick={clear} type="button">clear</button>
-          </li>
-          <li>
-            <button onClick={start} type="button">start</button>
-          </li>
-          <li>
-            <button onClick={clear} type="button">pause</button>
-          </li>
+        </nav>
+      </div>
 
-        </ul>
-      )}
-    </div>
-  </div>
-)
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Conway's Game of Life</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <button type="button" onClick={handleClose}>
+            Save Changes
+          </button>
+        </Modal.Footer>
+      </Modal>
+  </>
+)}
 
 /**
  * CONTAINER
@@ -61,16 +57,17 @@ const Navbar = ({handleClick, isLoggedIn, randomize, clear, start, age}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    age: state.generation.age
+    age: state.generation.age,
+    active: state.loop,
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     handleClick: () => dispatch(logout()),
-    randomize: () => dispatch(seedBoard()),
-    clear: () => dispatch(clearBoard()),
-    start: () => dispatch(nextBoard()),
+    randomize: () => {dispatch(seedBoard()); dispatch(setupLoop())},
+    clear: () => {dispatch(clearBoard()); dispatch(resetLoop())},
+    toggle: () => {dispatch(toggleLoop());},
   }
 }
 

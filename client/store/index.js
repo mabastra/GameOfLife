@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import generation from './cells'
+import loop from './loop'
 
-const reducer = combineReducers({ auth, generation })
+const reducer = combineReducers({ auth, generation, loop })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
