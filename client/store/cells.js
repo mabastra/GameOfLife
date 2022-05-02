@@ -113,7 +113,7 @@ export default function (state = {}, action) {
     }
 
     case SAMPLE_BOARD:
-      return { cells: action.cells, age: 0, change: false }
+      return { cells: action.cells, age: 0, changed: true }
     
     case SEED_BOARD: {
       const cells = [...state.cells]
