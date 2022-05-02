@@ -217,6 +217,18 @@ button:disabled:hover {
   font-size: 0.85rem;
 }
 
+.modal-body a,
+.modal-body a:hover,
+.modal-body a:active {
+  text-decoration: none;
+  color: lawngreen;
+}
+
+.modal-body a:hover {
+  background-color: lawngreen;
+  color: black;
+}
+
 .modal-footer {
   display: -ms-flexbox;
   display: flex;

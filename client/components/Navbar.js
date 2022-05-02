@@ -51,7 +51,7 @@ const Navbar = ({randomize, clear, saveLocal, loadLocal, loadPattern, toggle, ac
         </Modal.Header>
         <Modal.Body>
           <h5>About</h5>
-          <p>The Game of Life is an example of a cellular automaton, a way to mathematically model life evolving over time on a grid. Also known simply as Life, the rules for evolution were invented in 1970 by mathematician John Horton Conway.</p>
+          <p>The Game of Life is an example of a cellular automaton, a way to mathematically model life evolving over time on a grid. Also known simply as Life, the rules for evolution were invented in 1970 by mathematician John Horton Conway. {`\u003C`}<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">wikipedia:Life</a>{`\u003E`}</p>
           <h5>Rules</h5>
           <p>Life begins with a starting arrangement of cells, and continues without input (making Life a zero player game) according to the following rules:
           </p>
