@@ -28,6 +28,6 @@
 - [X] Save current game to localstorage/server
 - [X] Load sample starter states
 - [ ] User adjustable grid size
+- [ ] User adjustable generation time
 - [ ] Two different 'species' on grid (represented by color) 
    -  how do two species interact?
-- [ ] Option for edges (Snake style wrap around)
