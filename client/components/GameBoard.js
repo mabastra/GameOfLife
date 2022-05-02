@@ -28,12 +28,13 @@ class GameBoard extends React.Component {
   }
 
   render () {
-    if (this.props.active) console.log('props.active', this.props.active)
+    // if (this.props.active) console.log('props.active', this.props.active)
     const active = this.props.active || false;
     const cells = this.props.cells || [];
     const changed = this.props.changed || false;
+    // console.log('render: continue? act/cha/combined', active, changed, (active === true && changed === false))
 
-    console.log(`active ${active} and changed ${changed} `)
+    // console.log(`active ${active} and changed ${changed} `)
     if (active === true && changed === false) this.props.toggle();
     if (active) setTimeout(this.props.play, 100);
 

@@ -106,7 +106,7 @@ export default function (state = {}, action) {
     
     case LOAD_BOARD: {
       const generation = (localStorage.getItem(LIFE))
-        ? {cells: JSON.parse(localStorage.getItem(LIFE)), age: 0, changed: false}
+        ? {cells: JSON.parse(localStorage.getItem(LIFE)), age: 0, changed: true}
         : {...state}
       console.log('loaded!');
       return generation
@@ -120,7 +120,7 @@ export default function (state = {}, action) {
       for (let x=0; x<cells.length; x++)
         for (let y=0; y<cells[x].length; y++)
           cells[x][y].status = (Math.floor(Math.random() * 9)%5 === 0) ? 'alive' : 'dead';
-      return { cells, age: 0, changed: false}
+      return { cells, age: 0, changed: true}
     }
 
     case NEXT_BOARD: {
@@ -157,6 +157,7 @@ export default function (state = {}, action) {
           if (next[x][y].status !== curr[x][y].status) diff = true;
         }
       }
+      // console.log('cells.js: continue?', diff)
       return { cells: next, age: (diff)? age : state.age, changed: diff }
     }
 

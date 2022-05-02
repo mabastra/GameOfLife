@@ -21,6 +21,7 @@ export default function (state = {}, action) {
       return action.active;
 
       case TOGGLE_LOOP:
+      // console.log('toggling loop to active?', !state)
       return !state;
 
       default:
