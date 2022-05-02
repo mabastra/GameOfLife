@@ -241,3 +241,28 @@ button:disabled:hover {
   border-bottom-right-radius: 0.3rem;
   border-bottom-left-radius: 0.3rem;
 }
+
+@media only screen and (max-width: 800px) {
+  body {
+    /* background-color: lightblue; */
+  }
+  nav {
+    flex-direction: column;
+  }
+  nav>ul, .modal-body ul {
+    width: 100%;
+  }
+  nav>ul>li, .modal-body ul>li {
+    /* display: block; */
+  }
+
+  button {
+    height: 1..5rem;
+    font-size: 0.8rem;
+  }
+
+  .gameboard {
+    position: relative;
+    top: 2vw;
+  }
+}
