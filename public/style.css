@@ -125,24 +125,18 @@ button:disabled:hover {
 /* Game Board */
 .gameboard {
   width: 96vw;
-  /* height: 96vw; */
-  /* overflow: hidden; */
   margin: 0 2%;
   position: absolute;
   top: 6vw;
   left: 0;
-  /* display: flex; */
 }
 .gameboard>div { /*row*/
   /* flex: 1; */
   width:100%;
   display:flex;
-  /* border:1px solid hotpink; */
   line-height:30px;
 }
-.gameboard>div:first-child {
-  /* background-color: #00FFF0; */
-}
+
 .gameboard>div>div {
   flex:1 0 auto;
   height: auto;
@@ -251,9 +245,9 @@ button:disabled:hover {
   }
   nav>ul, .modal-body ul {
     width: 100%;
+    flex-wrap: wrap;
   }
   nav>ul>li, .modal-body ul>li {
-    /* display: block; */
   }
 
   button {
@@ -263,6 +257,6 @@ button:disabled:hover {
 
   .gameboard {
     position: relative;
-    top: 2vw;
+    top: 14vw;
   }
 }
