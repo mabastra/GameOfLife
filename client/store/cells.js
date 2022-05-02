@@ -1,10 +1,21 @@
 const EMPTY_BOARD = "EMPTY_BOARD";
+const SAVE_BOARD = "SAVE_BOARD";
 const LOAD_BOARD = "LOAD_BOARD";
 const SEED_BOARD = "SEED_BOARD";
 const CLEAR_BOARD = "CLEAR_BOARD";
+const SAMPLE_BOARD = "SAMPLE_BOARD";
+const DESTROY_BOARD = "DESTROY_BOARD";
 const NEXT_BOARD = "NEXT_BOARD";
 const FLIP_CELL = "FLIP_CELL";
 
+const LIFE = 'life';
+
+import {oscillators, spaceships} from './presets'
+
+const samples = {
+  oscillators,
+  spaceships,
+}
 
 
 export const emptyBoard = (width, height) => {
@@ -26,16 +37,39 @@ export const emptyBoard = (width, height) => {
   }
 }
 
+export const saveBoard = () => {
+  return {
+    type: SAVE_BOARD,
+  }
+}
+
+export const loadBoard = () => {
+  return {
+    type: LOAD_BOARD,
+  }
+}
+
+export const sampleBoard = (pattern) => {
+  const cells = samples[pattern]
+  return {
+    type: SAMPLE_BOARD,
+    cells
+  }
+} 
+
 export const clearBoard = () => {
   return {
     type: CLEAR_BOARD,
   }
 }
+
 export const seedBoard = () => {
   return {
     type: SEED_BOARD,
   }
 }
+
+
 export const flipCell = (x, y) => {
   return {
     type: FLIP_CELL,
@@ -63,9 +97,24 @@ export default function (state = {}, action) {
       return { cells, age: 0, changed: false }
     }
 
-    case LOAD_BOARD:
+    case SAVE_BOARD: {
+      const cells = [...state.cells];
+      localStorage.setItem(LIFE, JSON.stringify(cells));
+      console.log('saved!');
       return state
+    }
+    
+    case LOAD_BOARD: {
+      const generation = (localStorage.getItem(LIFE))
+        ? {cells: JSON.parse(localStorage.getItem(LIFE)), age: 0, changed: false}
+        : {...state}
+      console.log('loaded!');
+      return generation
+    }
 
+    case SAMPLE_BOARD:
+      return { cells: action.cells, age: 0, change: false }
+    
     case SEED_BOARD: {
       const cells = [...state.cells]
       for (let x=0; x<cells.length; x++)

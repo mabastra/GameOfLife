@@ -11,6 +11,7 @@ const height = 60;
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
+    console.log('interrupt')
     this.props.setup(width, height);
     this.props.seedBoard();
     this.cellClick = this.cellClick.bind(this);
@@ -22,7 +23,7 @@ class GameBoard extends React.Component {
 
   componentWillUnmount() {
     //empty board out for refresh
-    this.props.setup(width, height)
+    this.props.destroy()
 
   }
 
@@ -64,7 +65,8 @@ const mapDispatch = (dispatch) => {
     seedBoard: () => dispatch(seedBoard()),
     clickCell: (x, y) => dispatch(flipCell(x, y)),
     play: () => dispatch(nextBoard()),
-    toggle: () => {dispatch(toggleLoop())},
+    toggle: () => { dispatch(toggleLoop()) },
+    destroy: () => { dispatch(clearBoard()); dispatch(resetLoop()); },
   }
   
 }
